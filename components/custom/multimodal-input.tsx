@@ -21,13 +21,13 @@ import { Textarea } from "../ui/textarea";
 const suggestedActions = [
   {
     title: "What is the weather",
-    label: "in San Francisco?",
-    action: "what is the weather in San Francisco?",
+    label: "in Johannesburg?",
+    action: "what is the weather in Johannesburg?",
   },
   {
     title: "Answer like I'm 5,",
-    label: "why is the sky blue?",
-    action: "Answer like I'm 5, why is the sky blue?",
+    label: "What is dark matter?",
+    action: "Answer like I'm 5, what is dark matter?",
   },
 ];
 
