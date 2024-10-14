@@ -102,5 +102,6 @@ export async function handleSignIn(provider: string) {
 export async function handleSignout() {
   await signOut({
     redirectTo: "/",
+    redirect: true,
   });
 }

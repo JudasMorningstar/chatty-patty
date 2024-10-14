@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { handleSignout } from "@/app/(auth)/actions";
-import { signOut } from "@/app/(auth)/auth";
 
 import { ThemeToggle } from "./theme";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -75,7 +75,7 @@ export function UserNav() {
                 <form
                   className="w-full"
                   action={async () => {
-                    await handleSignout();
+                    await handleSignout().then(redirect("/"));
                   }}
                 >
                   <Button
@@ -92,7 +92,7 @@ export function UserNav() {
           </DropdownMenu>
         ) : (
           <Link
-            href={"/signin"}
+            href={"/login"}
             className={buttonVariants({
               size: "sm",
             })}

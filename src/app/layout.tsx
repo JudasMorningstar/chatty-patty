@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
 
 import { Navbar } from "@/components/custom/navbar";
-import "./globals.css";
+import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/custom/theme";
 
 export const metadata: Metadata = {

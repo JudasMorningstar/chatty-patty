@@ -1,11 +1,14 @@
 import { CoreMessage, CoreToolMessage, Message, ToolInvocation } from "ai";
 import { notFound } from "next/navigation";
 
-import { auth } from "@/app/(auth)/auth";
 import { Chat as PreviewChat } from "@/components/custom/chat";
-import { getChatById } from "@/db/queries";
-import { Chat } from "@/server/db/schema";
 import { generateUUID } from "@/lib/utils";
+import { auth } from "@/server/auth";
+import { getChatById } from "@/server/db/queries";
+import { Chat } from "@/server/db/schema";
+
+
+
 
 function addToolMessageToChat({
   toolMessage,
