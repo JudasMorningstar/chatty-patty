@@ -6,7 +6,15 @@ import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { AuthForm } from "@/components/custom/auth-form";
+import OAuthSignInButton from "@/components/custom/oauth-button";
 import { SubmitButton } from "@/components/custom/submit-button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
 import { RegisterActionState, register } from "../actions";
 
@@ -41,27 +49,33 @@ export default function Page() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-background">
-      <div className="w-full max-w-md overflow-hidden rounded-2xl gap-12 flex flex-col">
-        <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
-          <h3 className="text-xl font-semibold dark:text-zinc-50">Sign Up</h3>
-          <p className="text-sm text-gray-500 dark:text-zinc-400">
-            Create an account with your email and password
-          </p>
-        </div>
-        <AuthForm action={handleSubmit} defaultEmail={email}>
-          <SubmitButton>Sign Up</SubmitButton>
-          <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
-            {"Already have an account? "}
-            <Link
-              href="/login"
-              className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
-            >
-              Sign in
-            </Link>
-            {" instead."}
-          </p>
-        </AuthForm>
-      </div>
+      <Card className="mx-auto max-w-sm">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl">Sign in</CardTitle>
+          <CardDescription>
+            Choose your preferred sign in method
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <OAuthSignInButton provider="github" icon="gitHub" />
+            <OAuthSignInButton provider="discord" icon="discord" />
+          </div>
+          <AuthForm action={handleSubmit} defaultEmail={email}>
+            <SubmitButton>Sign Up</SubmitButton>
+            <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+              {"Already have an account? "}
+              <Link
+                href="/login"
+                className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
+              >
+                Sign in
+              </Link>
+              {" instead."}
+            </p>
+          </AuthForm>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -26,6 +26,13 @@ CREATE TABLE IF NOT EXISTS "authenticator" (
 	CONSTRAINT "authenticator_credentialID_unique" UNIQUE("credentialID")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "chat" (
+	"id" text PRIMARY KEY NOT NULL,
+	"createdAt" timestamp NOT NULL,
+	"messages" json NOT NULL,
+	"userId" text NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
 	"sessionToken" text PRIMARY KEY NOT NULL,
 	"userId" text NOT NULL,
@@ -35,11 +42,10 @@ CREATE TABLE IF NOT EXISTS "session" (
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
-	"email" text,
+	"email" varchar(64) NOT NULL,
 	"password" varchar(64),
 	"emailVerified" timestamp,
-	"image" text,
-	CONSTRAINT "user_email_unique" UNIQUE("email")
+	"image" text
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -48,9 +54,6 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	"expires" timestamp NOT NULL,
 	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
 );
---> statement-breakpoint
-DROP TABLE "User";--> statement-breakpoint
-ALTER TABLE "Chat" DROP CONSTRAINT "Chat_userId_User_id_fk";
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
@@ -65,13 +68,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "chat" ADD CONSTRAINT "chat_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "Chat" ADD CONSTRAINT "Chat_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

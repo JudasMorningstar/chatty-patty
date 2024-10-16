@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "tsx db/migrate && next build",
+    "build": "tsx src/server/db/migrate && next build",
     "start": "next start",
     "ui-add": "pnpm dlx shadcn@latest add && prettier --write --list-different",
     "db:generate": "drizzle-kit generate",
